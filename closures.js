@@ -9,11 +9,11 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
+inner();
 
 
 
@@ -32,8 +32,8 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
-
+var call = callFriend();
+call("435-215-9248");
 
 
 //Next Problem
@@ -44,6 +44,12 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
+var makeCounter = function() {
+  var number = 0;
+  return function() {
+    console.log(number++);
+  }
+}
   //Code Here
   var count = makeCounter();
   count() // 1
@@ -62,8 +68,26 @@ var callFriend = function(){
   (which invokes the original function that was passed in) that can only ever be executed once.
 */
 
-  //Code Here
+var outerFn = function(anotherFn) {
+  var number = 0;
+  return function() {
+    if(number < 1) {
+      number++;
+      anotherFn();
+    }
+    else {
+      console.log("function has already ran!")
+    }
+  }
+}
 
+var fun = function() {
+  console.log(3)
+}
+
+var innerFn = outerFn(fun)
+innerFn();
+// 
 
 
 //Next Problem
@@ -74,8 +98,23 @@ var callFriend = function(){
   Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
 
+var fnCounter = function(anotherFn, n) {
+  for (var i = 0; i < n; i++) {
+    if (i < n) {
+      anotherFn();
+    }
+    else {
+      console.log("STOP");
+    }
+  }
+}
+
+var fun = function() {
+  console.log("looping");
+}
 
 
+fnCounter(fun, 5);
 //Next Problem
 
 
