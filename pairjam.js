@@ -9,11 +9,11 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-var inner = outer();
+  //Code Here
 
 //Once you do that, invoke inner.
 
-inner();
+  //Code Here
 
 
 
@@ -32,8 +32,8 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-var call = callFriend();
-call("435-215-9248");
+  //Code Here
+
 
 
 //Next Problem
@@ -44,12 +44,6 @@ call("435-215-9248");
   Write a function called makeCounter that makes the following code work properly.
 */
 
-var makeCounter = function() {
-  var number = 0;
-  return function() {
-    return number++;
-  }
-}
   //Code Here
   var count = makeCounter();
   count() // 1
@@ -68,26 +62,8 @@ var makeCounter = function() {
   (which invokes the original function that was passed in) that can only ever be executed once.
 */
 
-var outerFn = function(anotherFn) {
-  var number = 0;
-  return function() {
-    if(number < 1) {
-      number++;
-      anotherFn();
-    }
-    else {
-      console.log("function has already ran!")
-    }
-  }
-}
+  //Code Here
 
-var fun = function() {
-  console.log(3)
-}
-
-var innerFn = outerFn(fun)
-innerFn();
-// 
 
 
 //Next Problem
@@ -95,26 +71,33 @@ innerFn();
 
 
 /*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
+  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. 
+  Now, in 'fnCounter', allow the anonymous function to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
 
-var fnCounter = function(anotherFn, n) {
-  for (var i = 0; i < n; i++) {
-    if (i < n) {
-      anotherFn();
+var fnCounter = function(cb, n){
+    var counter = 0;
+    return function(){
+        if (counter < n){
+            counter++;
+            cb();
+        } else {
+            return 'STOP';
+        }
     }
-    else {
-      console.log("STOP");
-    }
-  }
 }
 
-var fun = function() {
-  console.log("looping");
-}
+var myFunc = fnCounter(function(){
+    console.log('I\'m running!');
+}, 3);
+
+myFunc();
+myFunc();
+myFunc();
+myFunc();
 
 
-fnCounter(fun, 5);
+   
 //Next Problem
 
 
@@ -124,56 +107,53 @@ fnCounter(fun, 5);
     for (var i=1; i<=5; i++) {
       setTimeout( function timer(){
           console.log( i );
-      }, i*1000 );
+      },    i*1000 );
     }
   };
 
-  Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
+  // Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. 
+  // *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
-    5, 5, 5, 5, 5
+    // 6
+    // 6
+    // 6
+    // 6
+    // 6
 
 
   Now, run the function in your console and note what happpens.
 
   Was your answer right or wrong?
 
-    wrong
+    //Answer Here
 
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc)
 */
-
-  var counter = function(){
-    for (var i=1; i<=5; i++) {
-      setTimeout( (function timer(){
-          console.log( i );
-      }()), i*1000 );
+    
+    var counter = function(){
+        for(var i = 1; i <= 5; i++){
+            (function(y){
+                setTimeout(function(){
+                    console.log(y);
+                }, y * 1000)
+            })(i);
+        }
     }
-  };
-
-  counter();
+    
+    counter();
 
 
 
 //Next Problem
 
-var funcArray = [];
-
-function populateArr (index) {
-  return function() {
-    return index;
-  }
-}
-
-for(var i = 0; i < 6; i++){
-  funcArray.push(populateArr(i));
-};
-
-what do we call individual instances of methods in arrays?
 
 
 /*
   Make the following code work
+
+
+
 
   funcArray[0]() //0
   funcArray[1]() //1
@@ -184,5 +164,21 @@ what do we call individual instances of methods in arrays?
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
+
+var funcArray = [];
+
+var a = function(n) {
+  return function() {
+      return n;
+  }
+}
+
+for (var i = 0; i < 1000; i++) {
+  funcArray.push(a(i)); 
+};
+
+
+
+funcArray[8]();
 
 
